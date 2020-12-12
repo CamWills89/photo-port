@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalizeFirstLetter } from "../../utils/helpers";
 
 function Nav() {
   const categories = [
@@ -14,11 +15,13 @@ function Nav() {
       description: "Fields, farmhouses, waterfalls, and the beauty of nature",
     },
   ];
-  function categorySelected(name) {
+
+  const handleClick = (name) => {
     console.log(`${name} clicked`);
-  }
+  };
+
   return (
-    <header>
+    <header data-testid="header" className="flex-row px-1">
       <h2>
         <a href="/">
           <span role="img" aria-label="camera">
@@ -31,18 +34,20 @@ function Nav() {
       <nav>
         <ul className="flex-row">
           <li className="mx-2">
-            <a href="#about">About me</a>
+            <a href="#about" onClick={() => handleClick()}>
+              About me
+            </a>
           </li>
-          <li>
-            <span>Contact</span>
+          <li className={"mx-2"}>
+            <span onClick={() => handleClick()}>Contact</span>
           </li>
           {/* Whenever we map over anything in JSX, the outermost element must have
           a key attribute that's set to be something unique. This helps React
           keep track of items in the virtual DOM. */}
           {categories.map((category) => (
             <li className="mx-1" key={category.name}>
-              <span onClick={() => categorySelected(category.name)}>
-                {category.name}
+              <span onClick={() => handleClick(category.name)}>
+                {capitalizeFirstLetter(category.name)}
               </span>
             </li>
           ))}
