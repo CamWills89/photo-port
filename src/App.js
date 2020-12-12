@@ -1,14 +1,40 @@
-import React from 'react';
-import Nav from './components/Nav';
-import About from './components/About';
+import React, { useState } from "react";
+import Nav from "./components/Nav";
+import About from "./components/About";
+import Gallery from "./components/Gallery";
 
 function App() {
+  // here we lifted the the state to the App level,as well as currentCatagory
+  // and catagories. We did this so we can use them as props.
+  //this lets use pass props from Nav to the Gallery
+  const [categories] = useState([
+    {
+      name: "commercial",
+      description:
+        "Photos of grocery stores, food trucks, and other commercial projects",
+    },
+    { name: "portraits", description: "Portraits of people in my life" },
+    { name: "food", description: "Delicious delicacies" },
+    {
+      name: "landscape",
+      description: "Fields, farmhouses, waterfalls, and the beauty of nature",
+    },
+  ]);
+
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
   return (
     <div>
-      <Nav />
+      <Nav
+        categories={categories}
+        setCurrentCategory={setCurrentCategory}
+        currentCategory={currentCategory}
+      ></Nav>
       <main>
-          <About />        
+        <div>
+          <Gallery></Gallery>
+          <About></About>
+        </div>
       </main>
     </div>
   );
