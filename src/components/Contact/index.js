@@ -11,16 +11,25 @@ function ContactForm() {
   const { name, email, message } = formState;
 
   function handleChange(e) {
-    //   We use the spread operator, "...formState", so we can retain the other
+    // We use the spread operator, "...formState", so we can retain the other
     // key-value pairs in this object.Without the spread operator,
     // the formState object would be overwritten to only contain the name: value key pair.
+    // the name property of target refers to the name attribute of the form element.
+    // the name property matches the property names of formState (name, email, and message)
+    // and allows us to use [] to create dynamic property names.
     setFormState({ ...formState, [e.target.name]: e.target.value });
+  }
+  //   console.log(formState);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(formState);
   }
 
   return (
     <section>
       <h1>Contact me</h1>
-      <form id="contact-form">
+      <form id="contact-form" onSubmit={handleSubmit}>
         <div>
           {/* due to reserved keywords in JS, we replace "for" with "htmlFor" */}
           {/* just as "class" had to be changed to "className" */}
