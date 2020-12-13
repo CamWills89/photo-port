@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { validateEmail } from "../../utils/helpers";
 
 function ContactForm() {
   const [formState, setFormState] = useState({
@@ -7,17 +8,39 @@ function ContactForm() {
     email: "",
     message: "",
   });
+  //determine error messages and handle the error state.
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { name, email, message } = formState;
 
   function handleChange(e) {
+    //validate email
+    if (e.target.name === "email") {
+      const isValid = validateEmail(e.target.value);
+      console.log(isValid);
+      // isValid conditional statement
+      if (!isValid) {
+        setErrorMessage("Your email is invalid.");
+      } else {
+        setErrorMessage("");
+      }
+    } else {
+      if (!e.target.value.length) {
+        setErrorMessage(`${e.target.name} is required.`);
+      } else {
+        setErrorMessage("");
+      }
+    }
     // We use the spread operator, "...formState", so we can retain the other
     // key-value pairs in this object.Without the spread operator,
     // the formState object would be overwritten to only contain the name: value key pair.
     // the name property of target refers to the name attribute of the form element.
     // the name property matches the property names of formState (name, email, and message)
     // and allows us to use [] to create dynamic property names.
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    if (!errorMessage) {
+      setFormState({ ...formState, [e.target.name]: e.target.value });
+    }
+    // console.log("errorMessage", errorMessage);
   }
   //   console.log(formState);
 
