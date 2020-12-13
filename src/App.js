@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nav from "./components/Nav";
 import About from "./components/About";
 import Gallery from "./components/Gallery";
+import ContactForm from "./components/Contact";
 
 function App() {
   // here we lifted the the state to the App level,as well as currentCatagory
@@ -32,8 +33,9 @@ function App() {
       ></Nav>
       <main>
         <div>
+          <ContactForm />
           <Gallery currentCategory={currentCategory}></Gallery>
-          <About></About>
+          <About />
         </div>
       </main>
     </div>
