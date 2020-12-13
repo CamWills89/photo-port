@@ -22,21 +22,32 @@ function App() {
     },
   ]);
 
+  const [contactSelected, setContactSelected] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
   return (
     <div>
+      {/* passing these values to the Nav component as props */}
       <Nav
         categories={categories}
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
       ></Nav>
       <main>
-        <div>
-          <ContactForm />
-          <Gallery currentCategory={currentCategory}></Gallery>
-          <About />
-        </div>
+        {/* a conditional statement (ternary operator) to render the Gallery and About 
+          components when this value is false and the ContactForm component when true  */}
+        {!contactSelected ? (
+          // these <> and </> are react fragments (<React.Fragment>), they allow multiple
+          //elements to be grouped together
+          <>
+            <Gallery currentCategory={currentCategory}></Gallery>
+            <About></About>
+          </>
+        ) : (
+          <ContactForm></ContactForm>
+        )}
       </main>
     </div>
   );
