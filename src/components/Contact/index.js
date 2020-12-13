@@ -51,7 +51,7 @@ function ContactForm() {
 
   return (
     <section>
-      <h1>Contact me</h1>
+      <h1 data-testid="h1tag">Contact me</h1>
       <form id="contact-form" onSubmit={handleSubmit}>
         <div>
           {/* due to reserved keywords in JS, we replace "for" with "htmlFor" */}
