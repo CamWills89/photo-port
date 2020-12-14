@@ -132,14 +132,17 @@ function PhotoList({ category }) {
   const toggleModal = (image, i) => {
     // setCurrentPhoto setter function sets the photo state in the toggleModal function
     setCurrentPhoto({ ...image, index: i });
-    // updates the isModalOpen value to true
-    setIsModalOpen(true);
+    // value of isModalOpen is toggled from true to false
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
     <div>
-      {/* pass currentPhoto as aa prop, since it has access to the image and i */}
-      {isModalOpen && <Modal currentPhoto={currentPhoto} />}
+      {/* pass currentPhoto as aa prop, since it has access to the image and i 
+       and pass toggleModal as prop to allow us to toggle the state of the modal*/}
+      {isModalOpen && (
+        <Modal currentPhoto={currentPhoto} onClose={toggleModal} />
+      )}
       <div className="flex-row">
         {currentPhotos.map((image, i) => (
           <img
